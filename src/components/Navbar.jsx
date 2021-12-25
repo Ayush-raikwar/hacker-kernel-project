@@ -38,12 +38,12 @@ export const Navbar = () => {
     return(
         
         <NavBarContainer>
-            {navbarTrigger ? (
-                <>
                 <NavBrandDiv>
                     <img src={require('./images/asset2.png')} alt='logo'/>
                     <h4>My Wallet</h4>
                 </NavBrandDiv>
+            {navbarTrigger ? (
+                <>
                 <NavRightDiv>
                     <BalanceDiv>
                         <p>Rs 1500.00</p>

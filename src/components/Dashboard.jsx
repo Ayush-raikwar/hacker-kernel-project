@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { BodyComponent } from "./BodyComponent";
 import { Navbar } from "./Navbar";
 import { SideNav } from "./SideNav";
 
@@ -17,7 +18,9 @@ export const Dashboard = () => {
             <SideNav />
         </StyledSidenav>
         ) : (<SideNav />) }
-        
+
+        <BodyComponent />
+
        </Div>
     )
 }

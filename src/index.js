@@ -10,6 +10,7 @@ import { Unauthorized } from './components/Unauthorized';
 const tokenCheck = localStorage.getItem('token')
 
 // PAT = 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
+// new PAT = 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
 
 ReactDOM.render(
 
