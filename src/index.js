@@ -9,6 +9,8 @@ import { Unauthorized } from './components/Unauthorized';
 
 const tokenCheck = localStorage.getItem('token')
 
+// PAT = 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
+
 ReactDOM.render(
 
   <BrowserRouter>
