@@ -14,8 +14,9 @@ function App() {
   })
 
   return (
-    <div style={{margin:0}}>
-      hi
+    <div>
+      <pre>Home</pre>
+      <h1>You're already logged in, Please see dashboard</h1>
     </div>
   );
 }

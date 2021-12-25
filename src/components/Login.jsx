@@ -154,7 +154,7 @@ const LoginContainer = styled.div`
     font-family: 'Comfortaa', cursive;
     color:#fff;
     background-color: #192b3f;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     display: flex;
     flex-direction: row;
@@ -162,6 +162,12 @@ const LoginContainer = styled.div`
     
     p{
         font-weight: 900;
+    }
+    @media(max-width: 950px){
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        align-content: center;
     }
 
 `
@@ -175,10 +181,24 @@ const WelcomeContainer = styled.div`
     img{
         width: 50%;
     }
+    @media(max-width:950px){
+        width:auto;
+        text-align: center;
+        img{
+            width: 90%;
+        }
+    }
 
 `
 const WelcomeTextDiv = styled.div`
     /* width: 40%; */
+    @media(max-width:950px) {
+        align-self: center;
+        align-content: center;
+        /* width: 50%; */
+        display: block;
+        text-align: center;
+    }
 `
 const FormContainer = styled.form`
     background-color: #fff;
@@ -188,6 +208,12 @@ const FormContainer = styled.form`
     border-radius: 1.5rem;
     width: 20%;
     padding: 4rem;
+    @media(max-width:950px){
+        width: 65%;
+        text-align: center;
+        display: block;
+        justify-content: center;
+    }
 `
 const LoginRegisterDiv = styled.div`
     display: flex;

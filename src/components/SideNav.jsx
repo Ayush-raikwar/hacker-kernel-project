@@ -71,6 +71,12 @@ const SideNavContainer = styled.div`
             background-color: red;
         }
     }
+    @media(max-width:950px){
+        display: flex;
+        flex-direction: column;
+        width: auto;
+    }
+
 `
 const DashboardDiv = styled.div`
     background-color: #2f4e65;

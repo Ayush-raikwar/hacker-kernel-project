@@ -6,13 +6,28 @@ import styled from "styled-components";
 import {ReactComponent as BellIcon} from './images/notifications-bell-button.svg'
 export const Navbar = () => {
 
+    const [width, setWidth] = useState(0)
+    const [modalTriggered, setModalTriggered] = useState(false)
+    const [navbarTrigger, setNavbarTrigger] = useState(false)
+
     const navigate = useNavigate()
     useEffect(() => {
         if(!localStorage.getItem('token')){
             navigate('/login')
         }   
     })
-    const [modalTriggered, setModalTriggered] = useState(false)
+    useEffect(() => {
+        
+        const updateWidth = () => {
+            const newWidth = window.innerWidth;
+            setWidth(newWidth)
+        }
+        
+        window.addEventListener('resize', updateWidth)
+        return() => window.removeEventListener('resize', updateWidth)
+        
+    },[])
+
 
     const handleLogout = () => {
         localStorage.clear()
@@ -23,11 +38,44 @@ export const Navbar = () => {
     return(
         
         <NavBarContainer>
-            <NavBrandDiv>
-                <img src={require('./images/asset2.png')} alt='logo'/>
-                <h4>My Wallet</h4>
-            </NavBrandDiv>
-            <NavRightDiv>
+            {navbarTrigger ? (
+                <>
+                <NavBrandDiv>
+                    <img src={require('./images/asset2.png')} alt='logo'/>
+                    <h4>My Wallet</h4>
+                </NavBrandDiv>
+                <NavRightDiv>
+                    <BalanceDiv>
+                        <p>Rs 1500.00</p>
+                        <p>Wallet Balance</p>
+                    </BalanceDiv>
+                    <BellIconDiv>
+                        {/* <svg src={'./images/notifications-bell-button.svg'} alt='bell' /> */}
+                        <BellIconImg />
+
+                    </BellIconDiv>
+                    <UserDetailsDiv>
+                        <NameEmailDiv>
+                            <h4>Akash Bansal</h4>
+                            <p>{localStorage.getItem('email')? (localStorage.getItem('email')):('dummymail.com')}</p>
+                        </NameEmailDiv>
+                        <img src='https://yt3.ggpht.com/ytc/AKedOLS4_DD5Z0B4rEyX-XulluB5RdQ5J8y-jqqlfUL0_g=s900-c-k-c0x00ffffff-no-rj' alt='useImg'/>
+                        <DropdownBtn onClick={() => setModalTriggered(prev => !prev)}>&#8964;</DropdownBtn>
+                        
+                        {modalTriggered ? (
+                            <ModalDropdown>
+                            <h4>Home</h4>
+                            <h4 onClick={handleLogout}>Logout</h4>
+                        </ModalDropdown>
+                        ):null}
+                        
+                    </UserDetailsDiv>
+                </NavRightDiv>
+                </>
+
+            ):null}
+            {window.innerWidth>950? (
+                <NavRightDiv>
                 <BalanceDiv>
                     <p>Rs 1500.00</p>
                     <p>Wallet Balance</p>
@@ -54,6 +102,10 @@ export const Navbar = () => {
                     
                 </UserDetailsDiv>
             </NavRightDiv>
+            ):null}
+
+
+            {((width<950)&& window.innerWidth<950) ? (<CollapseBtn onClick={() => setNavbarTrigger(prev => !prev)}>☰</CollapseBtn>) : null}
         </NavBarContainer>
         
     )
@@ -67,6 +119,14 @@ const NavBarContainer = styled.div`
     border-bottom: 1px solid;
     font-family: 'Comfortaa', cursive;
     position: relative;
+    @media(max-width:950px){
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        *{
+            font-size: 1.5rem;
+        }
+    }
 `
 
 const NavBrandDiv = styled.div`
@@ -83,11 +143,21 @@ const NavBrandDiv = styled.div`
     h4{
         margin-left: .6rem;
     }
+    @media(max-width:950px){
+        display: block;
+        margin:1rem;
+    }
 `
 const NavRightDiv = styled.div`
     display: flex;
     *{
         margin:0;
+    }
+    @media(max-width:950px){
+        display: block;
+        div{
+            margin:1rem;
+        }
     }
 `
 const BalanceDiv = styled.div`
@@ -105,7 +175,11 @@ const BellIconDiv = styled.div`
     align-self: center;
     border-left: 1px solid;
     border-right: 1px solid;
-    margin: auto 1rem
+    margin: auto 1rem;
+    @media(max-width:950px){
+        display: block;
+        border:none;
+    }
 `
 const BellIconImg = styled(BellIcon)`
     width: 80px;
@@ -119,6 +193,10 @@ const UserDetailsDiv = styled.div`
         width: 45px;
         border-radius: 40px;
         margin: auto 1rem;
+    }
+    @media(max-width:950px){
+        display: flex;
+        flex-direction: column;
     }
 `
 const NameEmailDiv = styled.div`
@@ -139,6 +217,13 @@ const DropdownBtn = styled.button`
     font-weight: 900;
     border:none;
     cursor: pointer;
+    @media(max-width:950px){
+        display: block;
+        text-align: center;
+        align-self: center;
+        margin:1rem;
+        padding: 1rem 1.3rem;
+    }
 `
 const ModalDropdown = styled.div`
     background-color: #aaa;
@@ -156,4 +241,12 @@ const ModalDropdown = styled.div`
         border-top: 1px solid;
         padding-top: .5rem;
     }
+    @media(max-width:950px){
+        left: 4%;
+        top:95%;
+    }
+
+`
+const CollapseBtn = styled.h1`
+    cursor: pointer;
 `
